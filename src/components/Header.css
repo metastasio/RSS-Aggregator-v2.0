@@ -1,0 +1,31 @@
+@font-face {
+  font-family: 'Courier New';
+  src: url('../cour.ttf');
+}
+
+@font-face {
+  font-family: 'Courier Bold';
+  src: url('../courbd.ttf');
+}
+
+.header {
+  color: rgb(46, 46, 46);
+  background-color: rgb(226, 226, 226);
+  line-height: 1.3;
+  border-bottom: 3px solid rgb(46, 46, 46);
+}
+
+.main-title {
+  font-family: 'Courier Bold', Courier, monospace;
+  font-size: 46px;
+  margin-top: 20;
+  margin-bottom: 6px;
+}
+
+.sub-title {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 36px;
+  margin-top: 0;
+  margin-bottom: 12px;
+  /* color: rgb(88, 88, 88); */
+}

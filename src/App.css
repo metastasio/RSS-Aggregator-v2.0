@@ -1,0 +1,19 @@
+#root {
+  max-width: 80vw;
+  margin: 0 auto;
+}
+
+html {
+  height: 100%;
+  background-color: rgb(226, 226, 226);
+}
+body {
+  height: 100%;
+  margin: 0;
+}
+
+.main-flex {
+  display: flex;
+  background: white;
+  flex-direction: row;
+}
