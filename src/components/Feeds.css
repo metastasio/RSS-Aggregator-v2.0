@@ -1,4 +1,4 @@
-.form-style {
+.form {
   background-color: white;
   width: 30%;
   padding: 12px 4px 20px;
@@ -17,4 +17,5 @@
 .form-button:hover {
   background-color: yellowgreen;
 }
+
 

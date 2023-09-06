@@ -1,6 +1,26 @@
+@font-face {
+  font-weight: 400;
+  font-family: 'Courier';
+  src: url('../public/cour.ttf');
+}
+
+@font-face {
+  font-weight: 700;
+  font-family: 'Courier';
+  src: url('../public/courbd.ttf');
+}
+
+* {
+  box-sizing: border-box;
+}
+
 #root {
   max-width: 80vw;
   margin: 0 auto;
+  min-height: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  padding-bottom: 16px;
 }
 
 html {
@@ -8,12 +28,13 @@ html {
   background-color: rgb(226, 226, 226);
 }
 body {
-  height: 100%;
+  font-family: sans-serif;
   margin: 0;
+  height: 100%;
 }
 
 .main-flex {
   display: flex;
-  background: white;
   flex-direction: row;
+  background-color: white;
 }
