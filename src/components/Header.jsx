@@ -1,3 +1,5 @@
+import InputField from './InputField.jsx';
+
 import './Header.css';
 
 const Header = () => {
@@ -6,6 +8,7 @@ const Header = () => {
       <header className='header'>
         <h1 className='main-title'>RSS Aggregator</h1>
         <h2 className='sub-title'>Start reading RSS today!</h2>
+      <InputField />
       </header>
     </>
   );

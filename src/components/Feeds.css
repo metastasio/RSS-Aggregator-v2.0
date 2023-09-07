@@ -1,21 +1,6 @@
-.form {
+.feeds {
   background-color: white;
   width: 30%;
   padding: 12px 4px 20px;
 }
-
-.label {
-  display: block;
-  text-align: left;
-}
-
-.input {
-  margin: 0 auto;
-  width: 80%;
-}
-
-.form-button:hover {
-  background-color: yellowgreen;
-}
-
 
