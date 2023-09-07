@@ -1,7 +1,6 @@
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { submitUrl } from '../store/inputSlice';
 
@@ -19,7 +18,6 @@ const InputField = () => {
   const {
     register,
     handleSubmit,
-    setFocus,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
@@ -29,14 +27,12 @@ const InputField = () => {
   const dispatch = useDispatch();
 
   const onSubmit = (input) => {
+    const url = input.url;
+
     if (!errors.url) {
-      dispatch(submitUrl({ input }));
+      dispatch(submitUrl(url));
     }
   };
-
-  useEffect(() => {
-    setFocus('url');
-  }, [setFocus]);
 
   return (
     <>
@@ -52,7 +48,9 @@ const InputField = () => {
           <button className='form-button'>Add</button>
         </div>
         <div>
-          <p>Example: https://aljazeera.com/xml/rss/all.xml</p>
+          <p className='example'>
+            Example: https://aljazeera.com/xml/rss/all.xml
+          </p>
           <p className='feedback'>{errors.url && errors.url.message}</p>
         </div>
       </form>

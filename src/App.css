@@ -1,13 +1,13 @@
 @font-face {
   font-weight: 400;
   font-family: 'Courier';
-  src: url('../public/cour.ttf');
+  src: url('../cour.ttf');
 }
 
 @font-face {
   font-weight: 700;
   font-family: 'Courier';
-  src: url('../public/courbd.ttf');
+  src: url('../courbd.ttf');
 }
 
 * {
