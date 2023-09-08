@@ -1,6 +1,6 @@
 import Header from './components/Header.jsx';
-import Feeds from './components/Feeds.jsx';
-import Posts from './components/Posts.jsx';
+import Posts from './components/PostList/Posts.jsx';
+import Feeds from './components/FeedList/Feeds.jsx';
 
 import './App.css';
 

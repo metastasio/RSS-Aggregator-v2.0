@@ -27,7 +27,6 @@ const rssParser = (data, url) => {
   });
 
   return {
-    id: new Date().toISOString(),
     title: feedTitle,
     description: feedDescription,
     link: url,

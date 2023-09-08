@@ -26,35 +26,29 @@ const InputField = () => {
 
   const dispatch = useDispatch();
 
-  const onSubmit = (input) => {
-    const url = input.url;
-
-    if (!errors.url) {
-      dispatch(submitUrl(url));
-    }
+  const onSubmit = (values) => {
+    dispatch(submitUrl(values.url));
   };
 
   return (
-    <>
-      <form className='form' onSubmit={handleSubmit(onSubmit)}>
-        <div className='input'>
-          <label className='label' htmlFor='add_feed'></label>
-          <input
-            {...register('url')}
-            type='text'
-            id='add_feed'
-            placeholder='RSS link'
-          />
-          <button className='form-button'>Add</button>
-        </div>
-        <div>
-          <p className='example'>
-            Example: https://aljazeera.com/xml/rss/all.xml
-          </p>
-          <p className='feedback'>{errors.url && errors.url.message}</p>
-        </div>
-      </form>
-    </>
+    <form className='form' onSubmit={handleSubmit(onSubmit)}>
+      <div className='input'>
+        <label className='label' htmlFor='add_feed'></label>
+        <input
+          {...register('url')}
+          type='text'
+          id='add_feed'
+          placeholder='RSS link'
+        />
+        <button className='form-button'>Add</button>
+      </div>
+      <div>
+        <p className='example'>
+          Example: https://aljazeera.com/xml/rss/all.xml
+        </p>
+        <p className='feedback'>{errors.url && errors.url.message}</p>
+      </div>
+    </form>
   );
 };
 export default InputField;

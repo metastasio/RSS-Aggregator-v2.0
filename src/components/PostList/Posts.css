@@ -1,0 +1,11 @@
+.posts {
+  background-color: #F1FAEE;
+  width: 70%;
+  padding: 12px 4px 20px;
+}
+
+.list-title {
+  font-family: Courier, monospace;
+  font-size: 18px;
+  font-weight: bold;
+}

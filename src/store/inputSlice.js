@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import { createSlice } from '@reduxjs/toolkit';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import aggregator from '../aggregator';
@@ -12,42 +13,39 @@ const inputSlice = createSlice({
   initialState: {
     urls: [],
     feed: [],
+    posts: [],
     feedback: '',
   },
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(submitUrl.fulfilled, (state, action) => {
-      console.log(action.payload, 'ACTION');
-      state.urls.push(action.payload.link);
-      state.feed.push(action.payload);
-      state.feedback = 'URL has been added';
-    });
+    builder
+      .addCase(submitUrl.fulfilled, (state, action) => {
+        const feedID = _.uniqueId();
+        const { items, ...rest } = action.payload;
+        const formattedFeedItem = {
+          ...rest,
+          id: feedID,
+        };
+        const formattedPostsFromFeed = items
+          .map((item) => ({
+            ...item,
+            feedID,
+            id: _.uniqueId(),
+          }))
+          .reverse();
+        console.log(formattedPostsFromFeed, 'AAA');
+        state.urls.push(action.payload.link);
+        state.feed.push(formattedFeedItem);
+        state.posts.push(...formattedPostsFromFeed);
+        state.feedback = 'URL has been added';
+      })
+      .addCase(submitUrl.pending, (state) => {
+        state.feedback = 'Loading';
+      })
+      .addCase(submitUrl.rejected, (state) => {
+        state.feedback = 'Error';
+      });
   },
 });
 
-// export const { submitUrl } = inputSlice.actions;
-
 export default inputSlice.reducer;
-// const inputSlice = createSlice({
-//   name: 'input',
-//   initialState: {
-//     urls: [],
-//     posts: [],
-//     errors: [],
-//   },
-//   reducers: {
-//     submitUrl(state, action) {
-//       aggregator(action.payload.input.url).then((result) => {
-//         if (result.message) {
-//           state.errors.push(result.message);
-//         } else {
-//           state.urls.push({
-//             id: new Date().toISOString(),
-//             url: action.payload.input.url,
-//           });
-//           state.posts.push(result);
-//         }
-//       });
-//     },
-//   },
-// });

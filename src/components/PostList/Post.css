@@ -1,0 +1,16 @@
+.post-title {
+  font-size: 16px;
+}
+
+.post {
+  color: #1d3557;
+  text-decoration: underline 1px dotted;
+}
+
+.posts-list {
+  margin: 6px 0;
+}
+
+.post:hover {
+  color: #457b9d;
+}

@@ -1,0 +1,16 @@
+.feeds {
+  background-color: #F1FAEE;
+  width: 30%;
+  padding: 12px 12px;
+}
+
+.feedlist {
+  padding-left: 0;
+  list-style-type: none;
+}
+
+.list-title {
+  font-family: Courier, monospace;
+  font-size: 18px;
+  font-weight: bold;
+}
