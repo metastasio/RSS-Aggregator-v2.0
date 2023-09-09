@@ -1,26 +1,30 @@
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { useDispatch } from 'react-redux';
-import { submitUrl } from '../store/inputSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { submitUrl, updatePosts } from '../store/inputSlice';
 
 import './InputField.css';
 
-const schema = yup.object().shape({
-  url: yup
-    .string('This URL is incorrect')
-    .required('Input the URL')
-    .url('This URL is incorrect'),
-  //   .notOneOf(watchedState.feed, newInstance.t('double')),
-});
+const schema = (urls) =>
+  yup.object().shape({
+    url: yup
+      .string('This URL is incorrect')
+      .required('Input the URL')
+      .url('This URL is incorrect')
+      .notOneOf(urls, 'This URL has already been added'),
+  });
 
 const InputField = () => {
+  const data = useSelector((state) => state.input);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(schema(data.urls)),
     reValidateMode: 'onSubmit',
   });
 
@@ -29,6 +33,19 @@ const InputField = () => {
   const onSubmit = (values) => {
     dispatch(submitUrl(values.url));
   };
+
+  useEffect(
+    () => {
+      const interval = setInterval(() => {
+        dispatch(updatePosts(data));
+      }, 5000);
+      return () => {
+        clearInterval(interval);
+      };
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [data.urls],
+  );
 
   return (
     <form className='form' onSubmit={handleSubmit(onSubmit)}>

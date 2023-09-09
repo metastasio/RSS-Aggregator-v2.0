@@ -10,9 +10,9 @@ const Posts = () => {
       <div className='posts'>
         <p className='list-title'>Posts:</p>
         <ul className='feedlist'>
-          {posts.map((post) => {
-            return <Post key={post.id} {...post} />;
-          })}
+          {posts.map((post) => (
+            <Post key={post.id} {...post} />
+          ))}
         </ul>
       </div>
     );

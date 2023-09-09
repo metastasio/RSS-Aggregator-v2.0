@@ -11,6 +11,7 @@
   margin: 6px 0;
 }
 
+.visited,
 .post:hover {
   color: #457b9d;
 }
