@@ -1,10 +1,15 @@
-.posts {
+.popup {
   background-color: #F1FAEE;
-  width: 50%;
+  width: 30%;
   padding: 12px 4px 20px;
 }
 
-.list-title {
+.popuptext {
+  font-family: Courier, monospace;
+  font-size: 14px;
+}
+
+.popup-title {
   font-family: Courier, monospace;
   font-size: 18px;
   font-weight: bold;

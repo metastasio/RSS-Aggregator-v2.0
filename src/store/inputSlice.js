@@ -11,12 +11,12 @@ export const submitUrl = createAsyncThunk('input/submitUrl', function (url) {
 export const updatePosts = createAsyncThunk(
   'input/updatePosts',
   async function (data, thunkAPI) {
-    const { urls, feed, posts } = data;
+    const { urls, feeds, posts } = data;
     try {
       const updatedPosts = urls.map((url) => {
         return aggregator(url).then((result) => {
           const getCorrectFeed = (element) => element.link === url;
-          const correctFeed = feed.find(getCorrectFeed);
+          const correctFeed = feeds.find(getCorrectFeed);
           const filteredItems = _.differenceBy(result.items, posts, 'title');
           const newItems = filteredItems.map((item) => ({
             ...item,
@@ -47,7 +47,7 @@ const inputSlice = createSlice({
     posts: [],
     feedback: '',
     visitedLinks: [],
-    popup: [],
+    popup: '',
   },
   reducers: {
     updatePost(state, { payload }) {
@@ -64,9 +64,10 @@ const inputSlice = createSlice({
       state.posts = state.posts.filter(
         (post) => post.feedID !== action.payload,
       );
+      state.popup = '';
     },
     openPopup(state, action) {
-      state.popup.push(action.payload);
+      state.popup = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -88,7 +89,7 @@ const inputSlice = createSlice({
         state.urls.push(action.payload.link);
         state.feeds.push(formattedFeedItem);
         state.posts.push(...formattedPostsFromFeed);
-        state.feedback = 'URL has been added';
+        state.feedback = 'URL was added';
       })
       .addCase(submitUrl.pending, (state) => {
         state.feedback = 'Loading';
@@ -99,6 +100,6 @@ const inputSlice = createSlice({
   },
 });
 
-export const { setVisited, removeFeed } = inputSlice.actions;
+export const { setVisited, removeFeed, openPopup } = inputSlice.actions;
 
 export default inputSlice.reducer;

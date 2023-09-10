@@ -21,13 +21,19 @@ const Post = ({ id, title, link, description }) => {
         className={classNames}
         rel='noreferrer'
         target='_blank'
-        onClick={() => dispatch(setVisited(id))}
+        onClick={() => {
+          dispatch(setVisited(id));
+          dispatch(openPopup(description));
+        }}
       >
         {title}
       </a>
       <button
         className='preview'
-        onClick={() => dispatch(openPopup(description))}
+        onClick={() => {
+          dispatch(setVisited(id));
+          dispatch(openPopup(description));
+        }}
       >
         Preview
       </button>

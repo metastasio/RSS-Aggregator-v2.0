@@ -2,6 +2,8 @@
   padding: 4px;
   color: #e63946;
   font-weight: bold;
+  border:none;
+  background: none;
 }
 
 .close:hover {

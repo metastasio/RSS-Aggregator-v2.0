@@ -4,6 +4,7 @@ import * as yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { submitUrl, updatePosts } from '../store/inputSlice';
+import Feedback from './Feedback';
 
 import './InputField.css';
 
@@ -53,7 +54,7 @@ const InputField = () => {
         <label className='label' htmlFor='add_feed'></label>
         <input
           {...register('url')}
-          type='text'
+          type='url'
           id='add_feed'
           placeholder='RSS link'
         />
@@ -64,6 +65,7 @@ const InputField = () => {
           Example: https://aljazeera.com/xml/rss/all.xml
         </p>
         <p className='feedback'>{errors.url && errors.url.message}</p>
+        <Feedback />
       </div>
     </form>
   );

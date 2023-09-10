@@ -10,9 +10,9 @@ const Feed = ({ id, title, description }) => {
     <li>
       <p className='feed feed-title'>{title}</p>
       <p className='feed feed-description'>{description}</p>
-      <span className='close' onClick={() => dispatch(removeFeed(id))}>
+      <button className='close' onClick={() => dispatch(removeFeed(id))}>
         &times;
-      </span>
+      </button>
     </li>
   );
 };
