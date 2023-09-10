@@ -4,7 +4,8 @@ import Feed from './Feed.jsx';
 import './Feeds.css';
 
 const Feeds = () => {
-  const feeds = useSelector((state) => state.input.feed);
+  const feeds = useSelector((state) => state.input.feeds);
+
   if (feeds.length !== 0) {
     return (
       <div className='feeds'>

@@ -43,14 +43,14 @@ const inputSlice = createSlice({
   name: 'input',
   initialState: {
     urls: [],
-    feed: [],
+    feeds: [],
     posts: [],
     feedback: '',
     visitedLinks: [],
+    popup: [],
   },
   reducers: {
     updatePost(state, { payload }) {
-      console.log(payload, 'PAYLOAD');
       state.posts.push(...payload);
     },
     setError(state, action) {
@@ -58,6 +58,15 @@ const inputSlice = createSlice({
     },
     setVisited(state, action) {
       state.visitedLinks.push(action.payload);
+    },
+    removeFeed(state, action) {
+      state.feeds = state.feeds.filter((feed) => feed.id !== action.payload);
+      state.posts = state.posts.filter(
+        (post) => post.feedID !== action.payload,
+      );
+    },
+    openPopup(state, action) {
+      state.popup.push(action.payload);
     },
   },
   extraReducers: (builder) => {
@@ -77,7 +86,7 @@ const inputSlice = createSlice({
           }))
           .reverse();
         state.urls.push(action.payload.link);
-        state.feed.push(formattedFeedItem);
+        state.feeds.push(formattedFeedItem);
         state.posts.push(...formattedPostsFromFeed);
         state.feedback = 'URL has been added';
       })
@@ -90,6 +99,6 @@ const inputSlice = createSlice({
   },
 });
 
-export const { setVisited } = inputSlice.actions;
+export const { setVisited, removeFeed } = inputSlice.actions;
 
 export default inputSlice.reducer;

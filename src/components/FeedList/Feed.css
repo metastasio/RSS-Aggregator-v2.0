@@ -1,7 +1,11 @@
 .close {
-  padding-left: 4px;
+  padding: 4px;
   color: #e63946;
   font-weight: bold;
+}
+
+.close:hover {
+  color: #1d3557;
 }
 
 .feed-title {
@@ -10,7 +14,7 @@
 
 .feed-description {
   font-size: 12px;
-  color: #457D9B;
+  color: #457d9b;
 }
 .feed {
   margin: 6px 0;

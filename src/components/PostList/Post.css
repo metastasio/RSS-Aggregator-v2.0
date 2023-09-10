@@ -15,3 +15,12 @@
 .post:hover {
   color: #457b9d;
 }
+
+.preview:hover {
+  background-color: #a8dadc;
+  border: 1px dotted;
+}
+
+.preview {
+  margin: 0 12px;
+}

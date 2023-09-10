@@ -1,10 +1,10 @@
 import { useDispatch, useSelector } from 'react-redux';
 import cn from 'classnames';
-import { setVisited } from '../../store/inputSlice';
+import { setVisited, openPopup } from '../../store/inputSlice';
 
 import './Post.css';
 
-const Post = ({ id, title, link }) => {
+const Post = ({ id, title, link, description }) => {
   const dispatch = useDispatch();
   const visitedLinks = useSelector((state) => state.input.visitedLinks);
 
@@ -25,6 +25,12 @@ const Post = ({ id, title, link }) => {
       >
         {title}
       </a>
+      <button
+        className='preview'
+        onClick={() => dispatch(openPopup(description))}
+      >
+        Preview
+      </button>
     </li>
   );
 };
