@@ -3,15 +3,19 @@ import { createSlice } from '@reduxjs/toolkit';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import aggregator from '../aggregator';
 
-export const submitUrl = createAsyncThunk('input/submitUrl', function (url) {
-  const resolvedRss = aggregator(url);
-  return resolvedRss;
-});
+export const submitUrl = createAsyncThunk(
+  'input/submitUrl',
+  function (url, thunkAPI) {
+    thunkAPI.dispatch(inputSlice.actions.resetErrors());
+    const resolvedRss = aggregator(url);
+    return resolvedRss;
+  },
+);
 
 export const updatePosts = createAsyncThunk(
   'input/updatePosts',
-  async function (data, thunkAPI) {
-    const { urls, feeds, posts } = data;
+  async function (urls, thunkAPI) {
+    const { posts, feeds } = thunkAPI.getState().input;
     try {
       const updatedPosts = urls.map((url) => {
         return aggregator(url).then((result) => {
@@ -48,6 +52,7 @@ const inputSlice = createSlice({
     feedback: '',
     visitedLinks: [],
     popup: '',
+    status: 'idle',
   },
   reducers: {
     updatePost(state, { payload }) {
@@ -55,6 +60,9 @@ const inputSlice = createSlice({
     },
     setError(state, action) {
       state.feedback = action.payload;
+    },
+    resetErrors(state) {
+      state.feedback = '';
     },
     setVisited(state, action) {
       state.visitedLinks.push(action.payload);
@@ -90,16 +98,20 @@ const inputSlice = createSlice({
         state.feeds.push(formattedFeedItem);
         state.posts.push(...formattedPostsFromFeed);
         state.feedback = 'URL was added';
+        state.status = 'success';
       })
       .addCase(submitUrl.pending, (state) => {
         state.feedback = 'Loading';
+        state.status = 'loading';
       })
-      .addCase(submitUrl.rejected, (state) => {
-        state.feedback = 'Error';
+      .addCase(submitUrl.rejected, (state, action) => {
+        const { message } = action.error;
+        state.feedback = message;
+        state.status = 'error';
       });
   },
 });
 
-export const { setVisited, removeFeed, openPopup } = inputSlice.actions;
+export const { setVisited, removeFeed, openPopup, resetErrors } = inputSlice.actions;
 
 export default inputSlice.reducer;

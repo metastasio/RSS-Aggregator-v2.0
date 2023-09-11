@@ -3,8 +3,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { submitUrl, updatePosts } from '../store/inputSlice';
-import Feedback from './Feedback';
+import cn from 'classnames';
+import { submitUrl, updatePosts, resetErrors } from '../store/inputSlice';
 
 import './InputField.css';
 
@@ -18,14 +18,15 @@ const schema = (urls) =>
   });
 
 const InputField = () => {
-  const data = useSelector((state) => state.input);
+  const { urls, status, feedback } = useSelector((state) => state.input);
 
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(schema(data.urls)),
+    resolver: yupResolver(schema(urls)),
     reValidateMode: 'onSubmit',
   });
 
@@ -34,27 +35,41 @@ const InputField = () => {
   const onSubmit = (values) => {
     dispatch(submitUrl(values.url));
   };
+  const onReject = () => {
+    dispatch(resetErrors());
+  };
 
-  useEffect(
-    () => {
-      const interval = setInterval(() => {
-        dispatch(updatePosts(data));
-      }, 5000);
-      return () => {
-        clearInterval(interval);
-      };
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [data.urls],
-  );
+  useEffect(() => {
+    const interval = setInterval(() => {
+      dispatch(updatePosts(urls));
+    }, 5000);
+    return () => {
+      clearInterval(interval);
+    };
+  }, [urls, dispatch]);
+
+  useEffect(() => {
+    if (status === 'success' || status === 'error') {
+      reset();
+    } else {
+      return;
+    }
+  }, [status, reset]);
+
+  const classNames = cn({
+    feedback: true,
+    error: status === 'error',
+    loading: status === 'loading',
+    success: status === 'success'
+  });
 
   return (
-    <form className='form' onSubmit={handleSubmit(onSubmit)}>
+    <form className='form' onSubmit={handleSubmit(onSubmit, onReject)}>
       <div className='input'>
         <label className='label' htmlFor='add_feed'></label>
         <input
           {...register('url')}
-          type='url'
+          type='text'
           id='add_feed'
           placeholder='RSS link'
         />
@@ -64,8 +79,8 @@ const InputField = () => {
         <p className='example'>
           Example: https://aljazeera.com/xml/rss/all.xml
         </p>
-        <p className='feedback'>{errors.url && errors.url.message}</p>
-        <Feedback />
+        <p className='feedback error'>{errors.url && errors.url.message}</p>
+        <p className={classNames}>{feedback}</p>
       </div>
     </form>
   );

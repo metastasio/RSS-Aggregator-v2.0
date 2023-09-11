@@ -22,6 +22,14 @@ p {
   font-size: 14px;
 }
 
-.feedback {
+.error {
   color: #e63946;
+}
+
+.loading {
+  color: cornflowerblue;
+}
+
+.success {
+  color: teal;
 }
