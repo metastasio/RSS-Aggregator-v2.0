@@ -1,9 +1,9 @@
 import { useDispatch } from 'react-redux';
-import { removeFeed } from '../../store/inputSlice';
+import { removeFeed } from '../../store/appSlice';
 
-import './Feed.css';
+import './FeedItem.css';
 
-const Feed = ({ id, title, description }) => {
+const FeedItem = ({ id, title, description }) => {
   const dispatch = useDispatch();
 
   return (
@@ -16,4 +16,4 @@ const Feed = ({ id, title, description }) => {
     </li>
   );
 };
-export default Feed;
+export default FeedItem;

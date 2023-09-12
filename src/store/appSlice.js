@@ -1,12 +1,12 @@
 import _ from 'lodash';
 import { createSlice } from '@reduxjs/toolkit';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import aggregator from '../aggregator';
+import aggregator from '../services/aggregator.js';
 
 export const submitUrl = createAsyncThunk(
   'input/submitUrl',
-  function (url, thunkAPI) {
-    thunkAPI.dispatch(inputSlice.actions.resetErrors());
+  function (url, { dispatch }) {
+    dispatch(setError(''));
     const resolvedRss = aggregator(url);
     return resolvedRss;
   },
@@ -14,8 +14,8 @@ export const submitUrl = createAsyncThunk(
 
 export const updatePosts = createAsyncThunk(
   'input/updatePosts',
-  async function (urls, thunkAPI) {
-    const { posts, feeds } = thunkAPI.getState().input;
+  async function (urls, { getState, dispatch }) {
+    const { posts, feeds } = getState().input;
     try {
       const updatedPosts = urls.map((url) => {
         return aggregator(url).then((result) => {
@@ -32,13 +32,9 @@ export const updatePosts = createAsyncThunk(
       });
       const resolvedPosts = await Promise.all(updatedPosts);
       const resolvedPostsFlat = resolvedPosts.flat();
-      thunkAPI.dispatch(inputSlice.actions.updatePost(resolvedPostsFlat));
+      dispatch(updatePost(resolvedPostsFlat));
     } catch (error) {
-      thunkAPI.dispatch(
-        inputSlice.actions.setError(
-          `${error.message} - error.message from thunk refetch`,
-        ),
-      );
+      dispatch(setError(`${error.message} - error.message from thunk refetch`));
     }
   },
 );
@@ -51,7 +47,7 @@ const inputSlice = createSlice({
     posts: [],
     feedback: '',
     visitedLinks: [],
-    popup: '',
+    preview: '',
     status: 'idle',
   },
   reducers: {
@@ -61,9 +57,6 @@ const inputSlice = createSlice({
     setError(state, action) {
       state.feedback = action.payload;
     },
-    resetErrors(state) {
-      state.feedback = '';
-    },
     setVisited(state, action) {
       state.visitedLinks.push(action.payload);
     },
@@ -72,10 +65,10 @@ const inputSlice = createSlice({
       state.posts = state.posts.filter(
         (post) => post.feedID !== action.payload,
       );
-      state.popup = '';
+      state.preview = '';
     },
-    openPopup(state, action) {
-      state.popup = action.payload;
+    showPreview(state, action) {
+      state.preview = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -95,8 +88,9 @@ const inputSlice = createSlice({
           }))
           .reverse();
         state.urls.push(action.payload.link);
-        state.feeds.push(formattedFeedItem);
-        state.posts.push(...formattedPostsFromFeed);
+        state.feeds = [formattedFeedItem, ...state.feeds];
+        state.posts = [...formattedPostsFromFeed, ...state.posts];
+
         state.feedback = 'URL was added';
         state.status = 'success';
       })
@@ -112,6 +106,7 @@ const inputSlice = createSlice({
   },
 });
 
-export const { setVisited, removeFeed, openPopup, resetErrors } = inputSlice.actions;
+export const { setVisited, removeFeed, showPreview, setError, updatePost } =
+  inputSlice.actions;
 
 export default inputSlice.reducer;

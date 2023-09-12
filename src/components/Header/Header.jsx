@@ -1,4 +1,4 @@
-import InputField from './InputField.jsx';
+import InputField from '../InputField/InputField.jsx';
 
 import './Header.css';
 

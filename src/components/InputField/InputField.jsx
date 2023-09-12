@@ -4,7 +4,7 @@ import * as yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import cn from 'classnames';
-import { submitUrl, updatePosts, resetErrors } from '../store/inputSlice';
+import { submitUrl, updatePosts, setError } from '../../store/appSlice.js';
 
 import './InputField.css';
 
@@ -36,7 +36,7 @@ const InputField = () => {
     dispatch(submitUrl(values.url));
   };
   const onReject = () => {
-    dispatch(resetErrors());
+    dispatch(setError(''));
   };
 
   useEffect(() => {
@@ -51,16 +51,15 @@ const InputField = () => {
   useEffect(() => {
     if (status === 'success' || status === 'error') {
       reset();
-    } else {
-      return;
     }
   }, [status, reset]);
 
   const classNames = cn({
+    'secondary-content': true,
     feedback: true,
     error: status === 'error',
     loading: status === 'loading',
-    success: status === 'success'
+    success: status === 'success',
   });
 
   return (
@@ -76,10 +75,12 @@ const InputField = () => {
         <button className='form-button'>Add</button>
       </div>
       <div>
-        <p className='example'>
+        <p className='secondary-content example'>
           Example: https://aljazeera.com/xml/rss/all.xml
         </p>
-        <p className='feedback error'>{errors.url && errors.url.message}</p>
+        <p className='secondary-content feedback error'>
+          {errors.url && errors.url.message}
+        </p>
         <p className={classNames}>{feedback}</p>
       </div>
     </form>

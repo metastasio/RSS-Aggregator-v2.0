@@ -1,7 +1,7 @@
-import Header from './components/Header.jsx';
-import Posts from './components/PostList/Posts.jsx';
-import Feeds from './components/FeedList/Feeds.jsx';
-import Popup from './components/Popup.jsx';
+import Header from './components/Header/Header.jsx';
+import PostList from './components/PostList/PostList.jsx';
+import FeedList from './components/FeedList/FeedList.jsx';
+import Postcontent from './components/PostPreview/PostPreview.jsx';
 
 import './App.css';
 
@@ -10,9 +10,9 @@ function App() {
     <>
       <Header />
       <main className='main-flex'>
-        <Feeds />
-        <Posts />
-        <Popup />
+        <FeedList />
+        <PostList />
+        <Postcontent />
       </main>
     </>
   );
