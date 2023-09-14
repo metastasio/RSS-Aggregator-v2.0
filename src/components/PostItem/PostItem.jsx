@@ -14,7 +14,7 @@ const PostItem = ({ id, title, link, description }) => {
     visited: visitedLinks.includes(id),
   });
 
-  const onClickHandler = (id, description) => {
+  const onClickHandler = () => {
     dispatch(setVisited(id));
     dispatch(showPreview(description));
   };
@@ -26,13 +26,13 @@ const PostItem = ({ id, title, link, description }) => {
         className={classNames}
         rel='noreferrer'
         target='_blank'
-        onClick={() => onClickHandler(id, description)}
+        onClick={onClickHandler}
       >
         {title}
       </a>
       <button
         className='preview'
-        onClick={() => onClickHandler(id, description)}
+        onClick={onClickHandler}
       >
         Preview
       </button>
