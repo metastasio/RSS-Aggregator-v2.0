@@ -31,7 +31,7 @@ const PostItem = ({ id, title, link, description }) => {
         {title}
       </a>
       <button
-        className='preview'
+        className='preview-button'
         onClick={onClickHandler}
       >
         Preview

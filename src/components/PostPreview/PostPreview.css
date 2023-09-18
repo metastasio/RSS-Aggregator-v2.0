@@ -1,16 +1,21 @@
-.popup {
-  background-color: #F1FAEE;
-  width: 30%;
-  padding: 12px 4px 20px;
+.preview {
+  background-color: #f1faee;
+  padding: 24px 12px 24px 0;
 }
 
-.popuptext {
+.preview-text {
   font-family: Courier, monospace;
   font-size: 14px;
+  padding: 12px 0;
 }
 
-.popup-title {
+.preview-title {
   font-family: Courier, monospace;
   font-size: 18px;
   font-weight: bold;
+}
+
+.sticky {
+  position: sticky;
+  top: 20px;
 }

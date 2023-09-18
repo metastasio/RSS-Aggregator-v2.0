@@ -9,7 +9,7 @@ function App() {
   return (
     <>
       <Header />
-      <main className='main-flex'>
+      <main className='main'>
         <FeedList />
         <PostList />
         <Postcontent />

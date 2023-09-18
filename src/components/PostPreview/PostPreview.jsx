@@ -9,11 +9,13 @@ const PostContent = () => {
     return null;
   }
   return (
-    <div className='popup'>
-      <h5 className='popup-title'>This article is about:</h5>
-      <span className='popuptext' id='popup'>
-        {preview}
-      </span>
+    <div className='preview'>
+      <div className='sticky'>
+        <h4 className='preview-title'>This article is about:</h4>
+        <p className='preview-text'>
+          {preview}
+        </p>
+      </div>
     </div>
   );
 };

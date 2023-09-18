@@ -1,9 +1,10 @@
 .close {
-  padding: 4px;
+  /* padding: 4px; */
   color: #e63946;
   font-weight: bold;
-  border:none;
+  border: none;
   background: none;
+  font-size: 18px;
 }
 
 .close:hover {
@@ -12,12 +13,20 @@
 
 .feed-title {
   font-size: 16px;
+  margin-bottom: 4px;
 }
 
 .feed-description {
   font-size: 12px;
   color: #457d9b;
 }
-.feed {
-  margin: 6px 0;
+
+.feed-flex-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0 6px 0;
+  gap: 4px;
+  align-items: flex-start;
 }
+
+

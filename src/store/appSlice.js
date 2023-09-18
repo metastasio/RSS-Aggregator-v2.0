@@ -34,7 +34,7 @@ export const updatePosts = createAsyncThunk(
       const resolvedPostsFlat = resolvedPosts.flat();
       dispatch(updatePost(resolvedPostsFlat));
     } catch (error) {
-      dispatch(setError(`${error.message} - error.message from thunk refetch`));
+      dispatch(setError(error.message));
     }
   },
 );
@@ -52,7 +52,7 @@ const inputSlice = createSlice({
   },
   reducers: {
     updatePost(state, { payload }) {
-      state.posts.push(...payload);
+      state.posts = [...payload, ...state.posts];
     },
     setError(state, action) {
       state.feedback = action.payload;
@@ -61,6 +61,10 @@ const inputSlice = createSlice({
       state.visitedLinks.push(action.payload);
     },
     removeFeed(state, action) {
+      const urlToRemove = state.feeds.find(
+        (feed) => feed.id === action.payload,
+      );
+      state.urls = state.urls.filter((url) => url !== urlToRemove.link);
       state.feeds = state.feeds.filter((feed) => feed.id !== action.payload);
       state.posts = state.posts.filter(
         (post) => post.feedID !== action.payload,

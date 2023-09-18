@@ -65,12 +65,15 @@ const InputField = () => {
   return (
     <form className='form' onSubmit={handleSubmit(onSubmit, onReject)}>
       <div className='input'>
-        <label className='label' htmlFor='add_feed'></label>
+        <label className='label sr-only' htmlFor='add_feed'>
+          Input your URL
+        </label>
         <input
           {...register('url')}
           type='text'
           id='add_feed'
           placeholder='RSS link'
+          className='input-field'
         />
         <button className='form-button'>Add</button>
       </div>

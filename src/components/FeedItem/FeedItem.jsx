@@ -7,9 +7,12 @@ const FeedItem = ({ id, title, description }) => {
   const dispatch = useDispatch();
 
   return (
-    <li>
-      <p className='feed feed-title'>{title}</p>
-      <p className='feed feed-description'>{description}</p>
+    <li className='feed-flex-item'>
+      <div>
+        <p className='feed feed-title'>{title}</p>
+        <p className='feed feed-description'>{description}</p>
+      </div>
+
       <button className='close' onClick={() => dispatch(removeFeed(id))}>
         &times;
       </button>
